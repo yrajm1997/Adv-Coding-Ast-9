@@ -5,7 +5,14 @@
 ### Problem Statement
 You have been provided with a RESTful web service for a **Store Management System** using Spring Boot. The API allow users to manage products, including adding, updating, deleting, and retrieving products. The system store the product data in a Postgres database.
 
-You are tasked with creating endpoints to support search and filter opeartions to allow users to efficiently find products based on various criteria (e.g., name, category, price range, stock quantity range) along with Validation, Pagination, and Sorting features.
+You are tasked with implementing **Spring Security** for API security using Basic Authentication and JSON Web Tokens (JWT) for secure communication, as well as **Dockerizing** the application for container-based deployment. Basic Authentication will be used for the initial login, which provides credentials (username and password) to authenticate the user. Once authenticated, JWT tokens will be issued to the client for subsequent requests to access protected resources.
+
+### Objective
+To implement a Spring Boot application with the following security features:
+
+1. **Basic Authentication:** Use Spring Security to implement Basic Authentication to secure the application’s login mechanism, requiring the user to provide their credentials.
+2. **JWT Authentication:** After successful login, implement JWT-based token authentication for subsequent requests, where the server issues a JWT token upon successful login and validates the token for accessing protected resources.
+3. **Containerization:** Use Docker to containerize the Spring Boot application, ensuring that it can be run consistently across different environments.
 
 ### Steps to Follow
 1. This GitHub repository will be accessible to you once you accept the Assignment.
@@ -36,16 +43,9 @@ You are tasked with creating endpoints to support search and filter opeartions t
    ```
 
 4. Review the code/comments present in above files to understand the structure.
-5. Implement the missing classes/methods marked with **TODO** comments.
-6. To work on the files, you can clone this GitHub repository onto your system and then open it with an IDE like IntelliJ, or Eclipse.
-7. Once done, push your changes from your system to this remote GitHub repository.
-
-### Files to Work On
-- `src/main/java/com/mystore/app/entity/Product.java`
-- `src/main/java/com/mystore/app/repositories/ProductRepository.java`
-- `src/main/java/com/mystore/app/config/MyGlobalExceptionHandler.java`
-- `src/main/java/com/mystore/app/service/ProductService.java`
-- `src/main/java/com/mystore/app/rest/ProductController.java`
+5. Implement the Spring Security and Containerize the application.
+7. To work on the files, you can clone this GitHub repository onto your system and then open it with an IDE like IntelliJ, or Eclipse.
+8. Once done, push your changes from your system to this remote GitHub repository.
 
 ### Starter Code Files:
 Starter code for below functionalities have already provided:
@@ -78,47 +78,27 @@ Starter code for below functionalities have already provided:
 
 
 ## Requirements:
-1. **Validation**
+1. **Basic Authentication Implementation**
    
-   Update the files to include below data validations to check while adding new products:
-     - `name`: not null, not blank, not empty
-     - `category`: not null, not blank, not empty
-     - `price`: positive, minimum = 100, maximum = 50000
-        - If price < 100, show: `"Please don't add any product with price lesser than 100"`
-        - If price > 50000, show: `"This platform doesn't allow high priced products. Prices must be <= 50000"`
-     - `stockQuantity`: positive, minimum = 10, maximum = 500
+   - Allow users to authenticate using a username and password through HTTP Basic Authentication.
+   - Create and store users in the Database.
+      - Create an entity `User` and give a table name other than `user` or `users`. For example, you can give name in this format `yourname_users`
+   - Store encrypted password.
+   - Make all the API endpoints secure except for the one with which a user is added.
 
-2. **Search and Filter Products using JPA repository:** Implement search and filter endpoints to allow users to find products based on various criteria:
-   - **Search products by name:** `GET /products/search`
-     - Query Parameters:
-       - `name`: The name of the product to search for (e.g., `name=phone`).
-     - Response: A list of products that match the search term in the name field (case-insensitive).
-   - **Filter products by category:** `GET /products/filter/category`
-     - Query Parameters:
-       - `category`: The category to filter products by (e.g., `category=Electronics`).
-     - Response: A list of products that belong to the specified category.
-   - **Filter products by price range:** `GET /products/filter/price`
-     - Query Parameters:
-       - `minPrice`: The minimum price (e.g., `minPrice=10`).
-       - `maxPrice`: The maximum price (e.g., `maxPrice=100`).
-     - Response: A list of products whose price falls within the specified range.
-   - **Filter products by stock quantity:** `GET /products/filter/stock`
-     - Query Parameters:
-       - `minStock`: The minimum stock quantity (e.g., `minStock=10`).
-       - `maxStock`: The maximum stock quantity (e.g., `maxStock=100`).4
-     - Response: A list of products whose stock quantity is within the specified range.
+2. **JWT Implementation:**
+   - After a successful authentication, generate a JWT token containing user information and an expiration time.
+   - Include the JWT token in the response and require the token to be included in the `Authorization` header of each subsequent request to access protected resources.
+   - Implement token validation logic for every protected endpoint.
 
-3. **Pagination and Sorting**
+3. **Dockerization**
 
-   Update the `GET /products` endpoint to enable pagination and sorting.
-
-   For example `GET /products?page=0&pageSize=3&sortBy=price&sortDir=desc`
-   
-   Perform sorting based on the field name and direction provided.
+   - Create a Dockerfile for the Spring Boot application.
+   - Build and run the Spring Boot application inside a Docker container on your system, ensuring that the application is easily deployable across multiple environments.
 
 
 ## Submission Requirements:
-Implement the required API endpoints for the provided Spring Boot application. You can use Postman or cURL commands to test your API endpoints.
+Implement the required tasks for the provided Spring Boot application. You can use Postman or cURL commands to test your API endpoints.
 
 After completing the assignment and developing the solution code in your system, commit and push the changes to this repository. 
   - Stage your changes and commit the files:
@@ -132,12 +112,8 @@ After completing the assignment and developing the solution code in your system,
     ```
 
 ## Grading Criteria:
-- To implement validation correctly and showing the custom message when price value is not in the provided range [3 Marks]
-- To implement search by name endpoint correctly [1 Mark]
-- To implement filter by category endpoint correctly [1 Mark]
-- To implement filter by price endpoint correctly [1 Mark]
-- To implement filter by stock quantity endpoint correctly [1 Mark]
-- To implement pagination correctly [1 Mark]
-- To implement sorting correctly [2 Mark]
+- To implement Basic authentication correctly [5 Marks]
+- To implement JWT based authentication correctly [3 Marks]
+- To dockerize the application correctly [2 Marks]
 
 Good luck, and happy coding!
