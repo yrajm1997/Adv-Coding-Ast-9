@@ -100,6 +100,8 @@ Starter code for below functionalities have already provided:
 ## Submission Requirements:
 Implement the required tasks for the provided Spring Boot application. You can use Postman or cURL commands to test your API endpoints.
 
+Add the required execution screenshots, such as docker commands execution, in the `SubmissionImages` folder.
+
 After completing the assignment and developing the solution code in your system, commit and push the changes to this repository. 
   - Stage your changes and commit the files:
     ```
